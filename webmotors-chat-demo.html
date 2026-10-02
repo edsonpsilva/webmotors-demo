@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webmotors — Central de Atendimento</title>
+    <style>
+        :root {
+            --red: #E4002B;
+            --dark: #222222;
+            --gray: #f4f4f4;
+            --text: #333333;
+            color-scheme: light;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; background: #ffffff; color: var(--text); }
+
+        /* HEADER */
+        header {
+            background: var(--red);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+        nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        nav a:hover { color: white; }
+
+        /* HERO */
+        .hero {
+            background: var(--gray);
+            position: relative;
+            overflow: hidden;
+            padding: 56px 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 280px;
+            height: 280px;
+            background: var(--red);
+            transform: rotate(15deg);
+            opacity: 0.08;
+        }
+        .hero-content { max-width: 560px; position: relative; z-index: 1; }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        .hero h1 span { color: var(--red); }
+        .hero p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .hero-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: white;
+            border: 1.5px solid #ddd;
+            color: #444;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .hero-decoration {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-decoration svg {
+            width: 120px;
+            opacity: 0.12;
+        }
+
+        /* SEARCH BAR */
+        .search-bar {
+            background: white;
+            border-bottom: 2px solid var(--red);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .search-bar input {
+            flex: 1;
+            border: 1.5px solid #ddd;
+            border-radius: 4px;
+            padding: 10px 16px;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-bar input:focus { border-color: var(--red); }
+        .btn-red {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+        }
+        .btn-red:hover { background: #c0001f; }
+
+        /* SERVICE CARDS */
+        .services {
+            padding: 48px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .services h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+        .section-line {
+            width: 40px;
+            height: 3px;
+            background: var(--red);
+            margin-bottom: 28px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .card {
+            border: 1.5px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: white;
+        }
+        .card:hover {
+            border-color: var(--red);
+            box-shadow: 0 4px 16px rgba(228,0,43,0.1);
+        }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: #fff0f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+        .card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        .card p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .card-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--red);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* CHAT CTA */
+        .chat-cta {
+            background: var(--red);
+            color: white;
+            text-align: center;
+            padding: 32px 40px;
+        }
+        .chat-cta h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .chat-cta p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .btn-white {
+            background: white;
+            color: var(--red);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: #888;
+            text-align: center;
+            padding: 20px 40px;
+            font-size: 12px;
+        }
+        footer strong { color: #bbb; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <a href="#" class="logo">
+        <!-- Logo Webmotors SVG inline -->
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="18" fill="white"/>
+            <rect x="10" y="10" width="4" height="16" rx="1.5" fill="#E4002B"/>
+            <rect x="16" y="10" width="4" height="16" rx="1.5" fill="#E4002B"/>
+            <rect x="22" y="10" width="4" height="16" rx="1.5" fill="#E4002B"/>
+            <rect x="10" y="16" width="16" height="4" rx="1.5" fill="#E4002B"/>
+        </svg>
+        <span class="logo-text">webmotors</span>
+    </a>
+    <nav>
+        <a href="#">Comprar</a>
+        <a href="#">Vender</a>
+        <a href="#">Tabela WebMotors</a>
+        <a href="#">Financiar</a>
+        <a href="#">Seguro</a>
+        <a href="#">Revista</a>
+        <a href="#">Ajuda</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Central de <span>Atendimento</span><br>Webmotors</h1>
+        <p>Resolvemos seu problema agora, 24 horas por dia.<br>Cancelamentos, denúncias FIPE, suporte cadastral e muito mais.</p>
+        <div class="hero-badges">
+            <span class="badge">🤖 IA 24h disponível</span>
+            <span class="badge">✅ Resolução imediata</span>
+            <span class="badge">🔒 100% seguro</span>
+            <span class="badge">💬 WhatsApp • Chat • E-mail</span>
+        </div>
+    </div>
+    <div class="hero-decoration">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="0,0 200,0 200,150" fill="#E4002B" opacity="0.6"/>
+            <polygon points="50,200 200,50 200,200" fill="#E4002B" opacity="0.3"/>
+        </svg>
+    </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+    <input type="text" placeholder="Como podemos ajudar? Ex: cancelar anúncio, segunda via de boleto, reset de senha...">
+    <button class="btn-red">BUSCAR</button>
+</div>
+
+<!-- SERVICE CARDS -->
+<div class="services">
+    <h2>Como podemos te ajudar?</h2>
+    <div class="section-line"></div>
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>Cancelar Anúncio</h3>
+            <p>Cancele seu anúncio online em segundos. Estorno automático em até 5 dias úteis.</p>
+            <a href="#" class="card-link">Iniciar cancelamento →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>Denúncia de Precificação</h3>
+            <p>Encontrou anúncio com preço abusivo fora da tabela FIPE? Denuncie agora.</p>
+            <a href="#" class="card-link">Fazer denúncia →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">👤</div>
+            <h3>Suporte Cadastral</h3>
+            <p>Problemas com documentos, reset de senha ou dados cadastrais. Resolvemos agora.</p>
+            <a href="#" class="card-link">Acessar suporte →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <h3>Segunda Via de Boleto</h3>
+            <p>Solicite a segunda via do seu boleto de pagamento de forma rápida e segura.</p>
+            <a href="#" class="card-link">Gerar segunda via →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">📱</div>
+            <h3>Status do Anúncio</h3>
+            <p>Verifique por que seu anúncio está inativo e como reativá-lo em poucos passos.</p>
+            <a href="#" class="card-link">Verificar status →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Prevenção a Fraudes</h3>
+            <p>Identificou uma tentativa de golpe ou conta suspeita? Reporte para nossa equipe de segurança.</p>
+            <a href="#" class="card-link">Reportar fraude →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">📦</div>
+            <h3>Pacotes e Planos</h3>
+            <p>Dúvidas sobre planos de destaque, pacotes de anúncios ou upgrades da sua conta.</p>
+            <a href="#" class="card-link">Ver planos →</a>
+        </div>
+        <div class="card">
+            <div class="card-icon">❓</div>
+            <h3>Outras Dúvidas</h3>
+            <p>Não encontrou o que precisa? Fale com nosso Assistente Virtual que resolve agora.</p>
+            <a href="#" class="card-link">Falar com assistente →</a>
+        </div>
+    </div>
+</div>
+
+<!-- CHAT CTA -->
+<div class="chat-cta">
+    <h3>💬 Assistente Virtual Webmotors</h3>
+    <p>Atendimento inteligente 24h por dia — sem espera, sem burocracia.<br>Clique no ícone de chat no canto da tela para começar.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <strong>webmotors</strong> — © 2026 Webmotors S.A. Todos os direitos reservados. Uma empresa Santander. &nbsp;|&nbsp; Demo: Salesforce Service Cloud + Agentforce
+</footer>
+
+<!-- ============================================================
+     SALESFORCE EMBEDDED MESSAGING
+     ============================================================ -->
+<script type='text/javascript'>
+    function initEmbeddedMessaging() {
+        try {
+            embeddedservice_bootstrap.settings.language = 'pt_BR';
+            embeddedservice_bootstrap.init(
+                '00Dak00001FJ41x',
+                'SDO_Messaging_for_Web',
+                'https://trailsignup-12e5a08a06faa3.my.site.com/ESWSDOMessagingforWeb1727898059936',
+                {
+                    scrt2URL: 'https://trailsignup-12e5a08a06faa3.my.salesforce-scrt.com'
+                }
+            );
+        } catch (err) {
+            console.error('Error loading Embedded Messaging: ', err);
+        }
+    };
+</script>
+<script type='text/javascript'
+    src='https://trailsignup-12e5a08a06faa3.my.site.com/ESWSDOMessagingforWeb1727898059936/assets/js/bootstrap.min.js'
+    onload='initEmbeddedMessaging()'>
+</script>
+
+</body>
+</html>
